@@ -100,6 +100,6 @@
   color: #a6a6a6;
 }
 .datepicker-container .cell-today {
-  background-color: rgba(0, 152, 102, 0.4);
+  background-color: rgba(0, 152, 102, 0.25);
   font-weight: bold !important;
 }
