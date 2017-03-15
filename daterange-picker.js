@@ -93,7 +93,7 @@ function makeDatepicker(numberOfCals) {
 
     function generateCals() {
 
-        $(".datepicker-container").css("padding", "10px");
+        $(".datepicker-container").css("padding", "5px");
 
         //make skeleton
         $(".datepicker-container").html('<table><tbody><tr></tr></tbody></table><div><button class="btn-today">Today</button><button class="btn-close">X</button></div>');

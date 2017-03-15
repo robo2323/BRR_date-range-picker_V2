@@ -11,7 +11,7 @@
 }
 @media only screen and (max-width: 550px) {
   .datepicker-container {
-    width: 420px;
+    width: 410px;
   }
 }
 .datepicker-container div,
@@ -69,7 +69,7 @@
 }
 @media only screen and (max-width: 550px) {
   .datepicker-container .datepicker-days td {
-    font-size: 12px;
+    font-size: 11px;
   }
 }
 .datepicker-container .datepicker-days td a,
