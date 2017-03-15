@@ -1,94 +1,94 @@
 .datepicker-container {
-  box-sizing: border-box;
-  background-color: #f5f5f5;
-  max-width: 450px;
-  max-height: 400px;
-  font-family: Arial,sans-serif;
-  color: #222;
-
-  /* reset */
-  div, span, a, table, tbody, tfoot, thead, tr, th, td, a {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-}
-
-  th{
-    padding: 5px 0 5px 0;
-  }
-
-  button{
-    margin: 10px;
-  }
-
-  .btn-close{
-      float: right;
-    }
-
-  .datepicker-next{
-    float: right;
-  }
-  .datepicker-prev{
-    float: left;
-  }
-
-  table{
-        width: 100%;
-    height: 100%;
-    border-collapse: collapse;
-  }
-
-  .datepicker-cal-table{
-    padding: 5px;
-  }
-
-  .datepicker-days {
-    background-color: #fff;
-
-      td {
+    box-sizing: border-box;
+    position: absolute;
+    background-color: #f5f5f5;
+    width: 450px;
+    max-height: 400px;
+    font-family: Arial, sans-serif;
+    color: #222;
+    /* reset */
+    div,
+    span,
+    a,
+    table,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td,
+    a {
+        margin: 0;
         padding: 0;
-        width: 20px;
-        height: 25px;
-        line-height: 25px;
-        vertical-align: middle;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+    th {
+        padding: 5px 0 5px 0;
+    }
+    button {
+        margin: 10px;
+    }
+    .btn-close {
+        float: right;
+    }
+    .datepicker-next {
+        float: right;
+    }
+    .datepicker-prev {
+        float: left;
+    }
+    table {
+        width: 100%;
+        height: 100%;
+        border-collapse: collapse;
+    }
+    .datepicker-cal-table {
+        padding: 5px;
+    }
+    .datepicker-days {
+        background-color: #fff;
+        td {
+            padding: 0;
+            width: 20px;
+            height: 25px;
+            line-height: 25px;
+            vertical-align: middle;
             border: 1px solid #e6e6e6;
-        font-size: 14px;
-
-        a, span {
-          display: block;
-          text-align: center;
-          height: 100%;
-          width: 100%;
-
-      }
+            font-size: 14px;
+            a,
+            span {
+                display: block;
+                text-align: center;
+                height: 100%;
+                width: 100%;
+            }
+        }
     }
-  }
-  a {
-    text-decoration: none;
-      color: #222;
-
-    width: 100%;
-    height: 100%;
-  }
-  .cell-highlight {
-    background-color: #4bc800;
-    color: #fff;
-  }
-  .cell-clear {
-    background-color: transparent;
-  }
-  .cell-not-in-month {
-    color: #a6a6a6;
-    cursor: default;
-    &:hover {
-      color: #a6a6a6;
+    a {
+        text-decoration: none;
+        color: #222;
+        width: 100%;
+        height: 100%;
     }
-  }
-  .cell-today {
-    background-color: rgba(0, 152, 102, 0.4);
-    font-weight: bold !important;
-  }
+    .cell-highlight {
+        background-color: #4bc800;
+        color: #fff;
+    }
+    .cell-clear {
+        background-color: transparent;
+    }
+    .cell-not-in-month {
+        color: #a6a6a6;
+        cursor: default;
+        &:hover {
+            color: #a6a6a6;
+        }
+    }
+    .cell-today {
+        background-color: rgba(0, 152, 102, 0.4);
+        font-weight: bold !important;
+    }
 }

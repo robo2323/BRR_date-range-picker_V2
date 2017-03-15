@@ -187,6 +187,28 @@ function makeDatepicker(numberOfCals) {
 
         $(".btn-today").click(function () {
 
+
+             if (date1 === null) {
+                 date1 = currentDate;
+                 $(".datepicker-input").val(formatDate(date1));
+             } else if (date1 !== null) {
+                 date2 = currentDate;
+                 $(".datepicker-input").val(formatDate(date1) + " - " + formatDate(date2));
+             }else if (date1 !== null && date2 !== null) {
+                 alert
+                 date2 = null;
+                 date1 = currentDate;
+                 $(".datepicker-input").val(formatDate(date1));
+             }
+
+
+            /*console.log(date1);
+
+            date1 = currentDate;
+
+            console.log(date1);
+
+            $(".datepicker-input").val(formatDate(date1));*/
             generateCals();
         });
 
@@ -198,6 +220,18 @@ function makeDatepicker(numberOfCals) {
 
     }
     generateCals();
+
+    //position datepicker
+
+    //if date input field left position is more than half the screen width then aligns datepicker right to date field right
+    if ($('.datepicker-input').offset().left > $(document).width() / 2) {
+        var $offsetWidth = $('.datepicker-container').width() + 15 - $('.datepicker-input').width();
+        //$('.datepicker-container').css('transform', 'translateX(-'+$offsetWidth+'px)');
+    }
+
+    $('.datepicker-container').css("left", ($('.datepicker-input').offset().left) - $offsetWidth) + "px";
+    $('.datepicker-container').css("top", ($('.datepicker-input').height() * 2.1) + "px");
+
 }
 
 $(".datepicker-input").click(function () {
