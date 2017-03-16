@@ -1,4 +1,4 @@
-function makeDatepicker(numberOfCals) {
+function makeDatepicker(numberOfCals, id) {
 
     var monthNames = {
         0: "January",
@@ -15,15 +15,20 @@ function makeDatepicker(numberOfCals) {
         11: "December"
     };
 
+    //change seperator for date formating in input box here
+    var separator = "/";
+
+    var divId = "#" + id;
+
     var calendars = {};
 
     var date1, date2;
 
-    var oldDate = $(".datepicker-input").val().split(" ");
+    var oldDate = $(divId + " .datepicker-input").val().split(" ");
 
     if (oldDate.length === 3) {
-        var oldDate1 = oldDate[0].split("/"),
-            oldDate2 = oldDate[2].split("/");
+        var oldDate1 = oldDate[0].split(separator),
+            oldDate2 = oldDate[2].split(separator);
         date1 = new Date(oldDate1[2], oldDate1[1] - 1, oldDate1[0]);
         date2 = new Date(oldDate2[2], oldDate2[1] - 1, oldDate2[0]);
 
@@ -35,8 +40,8 @@ function makeDatepicker(numberOfCals) {
 
     var currentDate = new Date();
 
+    //change date formating/order for input box here
     function formatDate(dateObj) {
-        var separator = "/";
         var dd = (dateObj.getDate() > 9) ? dateObj.getDate() : "0" + dateObj.getDate();
         var mm = (dateObj.getMonth() > 9) ? dateObj.getMonth() + 1 : "0" + (dateObj.getMonth() + 1);
         return dd + separator + mm + separator + dateObj.getFullYear();
@@ -67,7 +72,9 @@ function makeDatepicker(numberOfCals) {
         }
     }
 
-    function prevButton() {
+    function prevButton(e) {
+        e.stopPropagation();
+
         for (var i = 0; i < numberOfCals; i++) {
             calendars[i].month -= 1;
             if (calendars[i].month == -1) {
@@ -79,7 +86,9 @@ function makeDatepicker(numberOfCals) {
         buildEachCal();
     }
 
-    function nextButton() {
+    function nextButton(e) {
+        e.stopPropagation();
+
         for (var i = 0; i < numberOfCals; i++) {
             calendars[i].month += 1;
             if (calendars[i].month == 12) {
@@ -93,20 +102,21 @@ function makeDatepicker(numberOfCals) {
 
     function generateCals() {
 
-        $(".datepicker-container").css("padding", "5px");
+        $(divId + ".datepicker-container").css("padding", "5px");
 
-        //make skeleton
-        $(".datepicker-container").html('<table><tbody><tr></tr></tbody></table><div><button class="btn-today">Today</button><button class="btn-close">X</button></div>');
+        //make skeleton including today and close buttons, they can be changed or more buttons added here
+        $(divId + " .datepicker-container").html('<table><tbody><tr></tr></tbody></table><div><button class="btn-today">Today</button><button class="btn-close">X</button></div>');
 
         for (var i = numberOfCals - 1; i > -1; i--) {
 
-            $(".datepicker-container table tbody > tr").append('<td class="datepicker-cal-table"> <table> <thead> <tr> <th colspan="7"> <a id="datepicker-cal-' + i + '-prev" href="#"><span class="datepicker-prev">◀</span></a> <a href="#"><span id="datepicker-cal-' + i + '-head"></span></a> <a id="datepicker-cal-' + i + '-next" href="#"><span class="datepicker-next">▶</span></a> </th> </tr> <tr> <th><span>M</span></th> <th><span>T</span></th> <th><span>W</span></th> <th><span>T</span></th> <th><span>F</span></th> <th><span>S</span></th> <th><span>S</span></th> </tr> </thead> <tbody id="datepicker-cal-' + i + '-days" class="datepicker-days"> </tbody> </table> </td>');
+            //build table/calendar headers
+            $(divId + " .datepicker-container table tbody > tr").append('<td class="datepicker-cal-table"> <table> <thead> <tr> <th colspan="7"> <a class="datepicker-cal-' + i + '-prev" href="#"><span class="datepicker-prev">◀</span></a> <a href="#"><span class="datepicker-cal-' + i + '-head"></span></a> <a class="datepicker-cal-' + i + '-next" href="#"><span class="datepicker-next">▶</span></a> </th> </tr> <tr> <th><span>M</span></th> <th><span>T</span></th> <th><span>W</span></th> <th><span>T</span></th> <th><span>F</span></th> <th><span>S</span></th> <th><span>S</span></th> </tr> </thead> <tbody class="datepicker-cal-' + i + '-days datepicker-days"> </tbody> </table> </td>');
 
             initCalDates(i);
 
-            $("#datepicker-cal-" + i + "-prev").click(prevButton);
+            $(divId + " .datepicker-cal-" + i + "-prev").click(prevButton);
 
-            $("#datepicker-cal-" + i + "-next").click(nextButton);
+            $(divId + " .datepicker-cal-" + i + "-next").click(nextButton);
 
         }
         buildEachCal();
@@ -114,18 +124,18 @@ function makeDatepicker(numberOfCals) {
 
     function buildEachCal() {
 
-        //generate each calendar
+        //generate each calendar-days
         for (var calCount = 0; calCount < numberOfCals; calCount++) {
 
             var cellNum = 0;
 
-            $('#datepicker-cal-' + calCount + '-head').text(monthNames[calendars[calCount].month] + " " + calendars[calCount].year);
+            $(divId + ' .datepicker-cal-' + calCount + '-head').text(monthNames[calendars[calCount].month] + " " + calendars[calCount].year);
 
-            $('#datepicker-cal-' + calCount + '-days').html("");
+            $(divId + ' .datepicker-cal-' + calCount + '-days').html("");
 
             for (var i = 0; i < 6; i++) {
 
-                $('#datepicker-cal-' + calCount + '-days').append("<tr></tr>");
+                $(divId + ' .datepicker-cal-' + calCount + '-days').append("<tr></tr>");
 
                 for (var j = 0; j < 7; j++) {
 
@@ -134,7 +144,6 @@ function makeDatepicker(numberOfCals) {
                         dayNum = dayDate.getDate();
 
                     var highlightClass;
-
 
                     if (date1 !== null && date2 !== null && dayDate >= date1 && dayDate <= date2) {
                         highlightClass = "cell-highlight";
@@ -152,27 +161,29 @@ function makeDatepicker(numberOfCals) {
                         highlightClass = "cell-not-in-month";
                     }
 
-                    $('#datepicker-cal-' + calCount + '-days tr:nth-child(' + (i + 1) + ')').append('<td><a class="' + highlightClass + '" href="#" data-date="' + new Date(calendars[calCount].year, calendars[calCount].month, dayNum).toDateString() + '"><span id="cal-one-cell-' + cellNum + '">' + dayNum + '</span></a></td>');
+                    $(divId + ' .datepicker-cal-' + calCount + '-days tr:nth-child(' + (i + 1) + ')').append('<td><a class="' + highlightClass + '" href="#" data-date="' + new Date(calendars[calCount].year, calendars[calCount].month, dayNum).toDateString() + '"><span class="cal-one-cell-' + cellNum + '">' + dayNum + '</span></a></td>');
                     cellNum++;
                 }
             }
         }
 
-        $(".datepicker-days a").click(function () {
+        $(divId + " .datepicker-days a").click(function (e) {
+            e.stopPropagation();
+
 
             if (!$(this).hasClass("cell-not-in-month")) {
 
                 if (date1 === null) {
                     date1 = new Date($(this).attr("data-date"));
-                    $(".datepicker-input").val(formatDate(date1));
+                    $(divId + " .datepicker-input").val(formatDate(date1));
                 } else if (date1 !== null && date2 === null) {
                     date2 = new Date($(this).attr("data-date"));
-                    $(".datepicker-input").val($(".datepicker-input").val() + " - " + formatDate(date2));
+                    $(divId + " .datepicker-input").val($(divId + " .datepicker-input").val() + " - " + formatDate(date2));
 
                 } else if (date1 !== null && date2 !== null) {
                     date2 = null;
                     date1 = new Date($(this).attr("data-date"));
-                    $(".datepicker-input").val(formatDate(date1));
+                    $(divId + " .datepicker-input").val(formatDate(date1));
 
                 }
 
@@ -185,37 +196,31 @@ function makeDatepicker(numberOfCals) {
             }
         });
 
-        $(".btn-today").click(function () {
+        $(divId + " .btn-today").click(function (e) {
+            e.stopPropagation();
 
 
-             if (date1 === null) {
-                 date1 = currentDate;
-                 $(".datepicker-input").val(formatDate(date1));
-             } else if (date1 !== null) {
-                 date2 = currentDate;
-                 $(".datepicker-input").val(formatDate(date1) + " - " + formatDate(date2));
-             }else if (date1 !== null && date2 !== null) {
-                 alert
-                 date2 = null;
-                 date1 = currentDate;
-                 $(".datepicker-input").val(formatDate(date1));
-             }
+            if (date1 === null) {
+                date1 = currentDate;
+                $(divId + " .datepicker-input").val(formatDate(date1));
+            } else if (date1 !== null) {
+                date2 = currentDate;
+                $(divId + " .datepicker-input").val(formatDate(date1) + " - " + formatDate(date2));
+            } else if (date1 !== null && date2 !== null) {
+                alert
+                date2 = null;
+                date1 = currentDate;
+                $(divId + " .datepicker-input").val(formatDate(date1));
+            }
 
 
-            /*console.log(date1);
-
-            date1 = currentDate;
-
-            console.log(date1);
-
-            $(".datepicker-input").val(formatDate(date1));*/
             generateCals();
         });
 
-        $(".btn-close").click(function () {
-
-            $(".datepicker-container").html("");
-            $(".datepicker-container").css("padding", "0");
+        $(divId + " .btn-close").click(function (e) {
+            e.stopPropagation();
+            $(divId + " .datepicker-container").html("");
+            $(divId + " .datepicker-container").css("padding", "0");
         });
 
     }
@@ -224,16 +229,18 @@ function makeDatepicker(numberOfCals) {
     //position datepicker
 
     //if date input field left position is more than half the screen width then aligns datepicker right to date field right
-    if ($('.datepicker-input').offset().left > $(document).width() / 2) {
-        var $offsetWidth = $('.datepicker-container').width() + 15 - $('.datepicker-input').width();
+    if ($(divId + ' .datepicker-input').offset().left > $(document).width() / 2) {
+        var $offsetWidth = $(divId + ' .datepicker-container').width() + 15 - $(divId + ' .datepicker-input').width();
         //$('.datepicker-container').css('transform', 'translateX(-'+$offsetWidth+'px)');
     }
 
-    $('.datepicker-container').css("left", ($('.datepicker-input').offset().left) - $offsetWidth) + "px";
-    $('.datepicker-container').css("top", ($('.datepicker-input').height() * 2.1) + "px");
+    $(divId + ' .datepicker-container').css("left", ($(divId + ' .datepicker-input').offset().left) - $offsetWidth) + "px";
+    $(divId + ' .datepicker-container').css("top", ($(divId + ' .datepicker-input').height() * 2.1) + "px");
 
 }
 
-$(".datepicker-input").click(function () {
-    makeDatepicker(2);
+//change the number in the first argument of makeDatepicker() to chnage how many calendars are displayed per datepicker
+$(".date-select").click(function (e) {
+    e.stopPropagation();
+    makeDatepicker(2, $(this).attr("id"));
 });

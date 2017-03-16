@@ -1,9 +1,15 @@
+/*media query variable*/
 @mq-small: ~"only screen and (max-width: 550px)";
+
+.date-select {
+	display: inline-block;
+}
 
 .datepicker-container {
     box-sizing: border-box;
     position: absolute;
     background-color: #f5f5f5;
+    /*overall width of datepicker widget*/
     width: 450px;
     @media @mq-small {
         width: 410px;
@@ -83,13 +89,19 @@
         width: 100%;
         height: 100%;
     }
+
+    /*selected date-range highlight*/
     .cell-highlight {
         background-color: #4bc800;
         color: #fff;
     }
+
+    /*normal cell/date style*/
     .cell-clear {
         background-color: transparent;
     }
+
+    /*cell/date not in the calendars month or in the future*/
     .cell-not-in-month {
         color: #a6a6a6;
         cursor: default;
@@ -97,8 +109,10 @@
             color: #a6a6a6;
         }
     }
+
+    /*styling for todays date cell*/
     .cell-today {
-        background-color: rgba(0, 152, 102, 0.25);//rgba(74, 200, 0, 0.3);
+        background-color: rgba(0, 152, 102, 0.25);
         font-weight: bold !important;
     }
 }
