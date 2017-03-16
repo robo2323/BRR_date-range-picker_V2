@@ -226,16 +226,11 @@ function makeDatepicker(numberOfCals, id) {
     }
     generateCals();
 
-    //position datepicker
-
     //if date input field left position is more than half the screen width then aligns datepicker right to date field right
     if ($(divId + ' .datepicker-input').offset().left > $(document).width() / 2) {
-        var $offsetWidth = $(divId + ' .datepicker-container').width() + 15 - $(divId + ' .datepicker-input').width();
-        //$('.datepicker-container').css('transform', 'translateX(-'+$offsetWidth+'px)');
+        var $offsetWidth = $(divId + ' .datepicker-container').width() - $(divId + ' .datepicker-input').width();
+        $(divId + ' .datepicker-container').css('transform', 'translateX(-'+$offsetWidth+'px)');
     }
-
-    $(divId + ' .datepicker-container').css("left", ($(divId + ' .datepicker-input').offset().left) - $offsetWidth) + "px";
-    $(divId + ' .datepicker-container').css("top", ($(divId + ' .datepicker-input').height() * 2.1) + "px");
 
 }
 
